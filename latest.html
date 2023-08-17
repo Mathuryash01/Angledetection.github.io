@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Received Data</title>
+</head>
+<body>
+    <h1>Received Data</h1>
+    
+    <div id="received-data">
+        No data received yet.
+    </div>
+
+    <script>
+        // Function to parse URL parameters
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Function to update received data on the page
+        function updateReceivedData() {
+            var roll = getParameterByName('roll');
+            var pitch = getParameterByName('pitch');
+
+            var receivedDataElement = document.getElementById('received-data');
+            if (roll !== null && pitch !== null) {
+                receivedDataElement.innerHTML = "Roll: " + roll + "<br>Pitch: " + pitch;
+            } else {
+                receivedDataElement.innerHTML = "No data received yet.";
+            }
+        }
+
+        // Call the function on page load
+        updateReceivedData();
+    </script>
+</body>
+</html>
